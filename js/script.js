@@ -6,7 +6,7 @@ var quoteUrl = "https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&fi
 
 function getQuote() {
     fetch(prefix + quoteUrl, { cache: "no-store" })
-        .then(function (resp) {
+        .then(function(resp) {
             return resp.json();
         })
         .then(createTweet);
@@ -16,7 +16,7 @@ function createTweet(input) {
     var data = input[0];
 
     var dataElement = document.createElement('div');
-    dataElement.innerHTML = data.content; 
+    dataElement.innerHTML = data.content;
     var quoteText = dataElement.innerText.trim();
     var quoteAuthor = data.title;
 
@@ -26,7 +26,7 @@ function createTweet(input) {
 
     var tweetText = "Quote of the day - " + quoteText + " Author: " + quoteAuthor;
 
-    if (tweetText.length > 140) {
+    if (tweetText.length > 300) {
         getQuote();
     }
     else {
@@ -34,12 +34,13 @@ function createTweet(input) {
         document.querySelector('.quote').innerText = quoteText;
         document.querySelector('.author').innerText = "Author: " + quoteAuthor;
         document.querySelector('.tweet').setAttribute('href', tweet);
+
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     getQuote();
-    document.querySelector('.trigger').addEventListener('click', function() {
+    document.querySelector('.trigger').addEventListener('click', function () {
         getQuote();
     });
 });
