@@ -10,11 +10,11 @@ function getQuote() {
             return resp.json();
         })
         .then(createTweet);
+    
 }
 
 function createTweet(input) {
     var data = input[0];
-
     var dataElement = document.createElement('div');
     dataElement.innerHTML = data.content;
     var quoteText = dataElement.innerText.trim();
@@ -25,10 +25,11 @@ function createTweet(input) {
     }
 
     var tweetText = "Quote of the day - " + quoteText + " Author: " + quoteAuthor;
-
-    if (tweetText.length > 300) {
+    console.log(tweetText.length);
+    if (tweetText.length > 140) {
         getQuote();
     }
+    
     else {
         var tweet = tweetLink + encodeURIComponent(tweetText);
         document.querySelector('.quote').innerText = quoteText;
@@ -42,5 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
     getQuote();
     document.querySelector('.trigger').addEventListener('click', function () {
         getQuote();
+        console.log("siema");
     });
 });
